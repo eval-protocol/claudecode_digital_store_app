@@ -21,7 +21,7 @@ from typing import Dict, List, Any, Optional
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
-from mcp_chinook_server import get_mcp_tools, call_mcp_tool
+# Legacy import removed - now using AgentRolloutProcessor with mcp_config_path
 
 # Import eval-protocol components
 try:
@@ -55,7 +55,7 @@ def storefront_dataset_to_evaluation_row(data: List[Dict[str, Any]]) -> List[Eva
         
         evaluation_row = EvaluationRow(
             messages=messages,
-            tools=get_mcp_tools(),  # Include MCP tools for database operations
+            tools=[],  # Tools managed by AgentRolloutProcessor via mcp_config_path
             input_metadata=InputMetadata(
                 row_id=row["id"],
                 dataset_info={
@@ -491,7 +491,7 @@ if __name__ == "__main__":
             print(f"✗ {test_type}: Dataset file {dataset_file} not found")
     
     print(f"✓ System prompt loaded: {len(load_system_prompt())} characters")
-    print(f"✓ Tools loaded: {len(get_mcp_tools())} MCP tools available")
+    print(f"✓ Tools managed by AgentRolloutProcessor via mcp_config_path")
     
     print("\nSetup complete! Run individual test suites with:")
     print("  pytest tests/test_chinook_storefront_expanded.py::test_browse_search_evaluation -v")

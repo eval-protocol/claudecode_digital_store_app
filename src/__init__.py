@@ -1,1 +1,0 @@
-# Chinook Digital Store Eval Protocol Project
