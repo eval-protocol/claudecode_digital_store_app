@@ -15,12 +15,10 @@ from typing import Dict, List, Any, Optional
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root / "src"))
 
-from mcp_chinook_server import get_mcp_tools, call_mcp_tool
-
 # Import eval-protocol components
 try:
     from eval_protocol.models import EvaluationRow, EvaluateResult, Message, InputMetadata
-    from eval_protocol.pytest import evaluation_test, SingleTurnRolloutProcessor
+    from eval_protocol.pytest import evaluation_test, AgentRolloutProcessor
 except ImportError:
     print("Error: eval-protocol not installed. Please install with: pip install eval-protocol")
     sys.exit(1)
@@ -52,7 +50,6 @@ def storefront_dataset_to_evaluation_row(data: List[Dict[str, Any]]) -> List[Eva
         
         evaluation_row = EvaluationRow(
             messages=messages,
-            tools=get_mcp_tools(),  # Include MCP tools for database operations
             input_metadata=InputMetadata(
                 row_id=row["id"],
                 dataset_info={
@@ -209,11 +206,12 @@ def check_catalog_search_behavior(response: str, expected_behaviors: List[str]) 
     completion_params=[
         {
             "model": "fireworks_ai/accounts/fireworks/models/gpt-oss-120b", 
-            "temperature": 0.8, 
+            "temperature": 0.8
         }
     ],
     passed_threshold=0.6,  # 20% success rate required (lowered to see successful run)
-    rollout_processor=SingleTurnRolloutProcessor(),
+    rollout_processor=AgentRolloutProcessor(),
+    mcp_config_path="mcp_server_config.json",
     num_runs=1,
     mode="pointwise"
 )

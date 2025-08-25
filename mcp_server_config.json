@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "python",
+      "args": [
+        "mcp_server/postgres_server.py",
+        "--conn", "postgresql://chinook_user:chinook_password@localhost:5432/chinook"
+      ]
+    }
+  }
+}

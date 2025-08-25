@@ -26,7 +26,7 @@ from mcp_chinook_server import get_mcp_tools, call_mcp_tool
 # Import eval-protocol components
 try:
     from eval_protocol.models import EvaluationRow, EvaluateResult, Message, InputMetadata
-    from eval_protocol.pytest import evaluation_test, SingleTurnRolloutProcessor
+    from eval_protocol.pytest import evaluation_test, AgentRolloutProcessor
 except ImportError:
     print("Error: eval-protocol not installed. Please install with: pip install eval-protocol")
     sys.exit(1)
@@ -363,13 +363,13 @@ def create_evaluation_function(row: EvaluationRow) -> EvaluationRow:
     dataset_adapter=storefront_dataset_to_evaluation_row,
     completion_params=[
         {
-            "model": "gpt-4o-mini", 
-            "temperature": 0.0, 
-            "max_tokens": 2000
+            "model": "fireworks_ai/accounts/fireworks/models/gpt-oss-120b", 
+            "temperature": 0.8
         }
     ],
     passed_threshold=0.7,  # 70% success rate for browse searches
-    rollout_processor=SingleTurnRolloutProcessor(),
+    rollout_processor=AgentRolloutProcessor(),
+    mcp_config_path="mcp_server_config.json",
     num_runs=1,
     mode="pointwise"
 )
@@ -390,13 +390,13 @@ def test_browse_search_evaluation(row: EvaluationRow) -> EvaluationRow:
     dataset_adapter=storefront_dataset_to_evaluation_row,
     completion_params=[
         {
-            "model": "gpt-4o-mini", 
-            "temperature": 0.0, 
-            "max_tokens": 2000
+            "model": "fireworks_ai/accounts/fireworks/models/gpt-oss-120b", 
+            "temperature": 0.8
         }
     ],
     passed_threshold=0.8,  # 80% success rate for auth gating
-    rollout_processor=SingleTurnRolloutProcessor(),
+    rollout_processor=AgentRolloutProcessor(),
+    mcp_config_path="mcp_server_config.json",
     num_runs=1,
     mode="pointwise"
 )
@@ -417,13 +417,13 @@ def test_auth_gating_evaluation(row: EvaluationRow) -> EvaluationRow:
     dataset_adapter=storefront_dataset_to_evaluation_row,
     completion_params=[
         {
-            "model": "gpt-4o-mini", 
-            "temperature": 0.0, 
-            "max_tokens": 2000
+            "model": "fireworks_ai/accounts/fireworks/models/gpt-oss-120b", 
+            "temperature": 0.8
         }
     ],
     passed_threshold=0.6,  # 60% success rate for complex searches
-    rollout_processor=SingleTurnRolloutProcessor(),
+    rollout_processor=AgentRolloutProcessor(),
+    mcp_config_path="mcp_server_config.json",
     num_runs=1,
     mode="pointwise"
 )
@@ -445,13 +445,13 @@ def test_catalog_search_evaluation(row: EvaluationRow) -> EvaluationRow:
     dataset_adapter=storefront_dataset_to_evaluation_row,
     completion_params=[
         {
-            "model": "gpt-4o-mini", 
-            "temperature": 0.0, 
-            "max_tokens": 2000
+            "model": "fireworks_ai/accounts/fireworks/models/gpt-oss-120b", 
+            "temperature": 0.8
         }
     ],
     passed_threshold=0.9,  # 90% success rate for security
-    rollout_processor=SingleTurnRolloutProcessor(),
+    rollout_processor=AgentRolloutProcessor(),
+    mcp_config_path="mcp_server_config.json",
     num_runs=1,
     mode="pointwise"
 )
