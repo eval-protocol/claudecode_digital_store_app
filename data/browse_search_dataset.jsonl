@@ -1,0 +1,8 @@
+{"id": "browse_basic_genre", "prompt": "Find bossa nova songs under $0.99.", "expected_behaviors": ["browse_only_mode", "applies_limit", "price_filter", "genre_search"], "test_type": "browse_search"}
+{"id": "browse_no_price_filter", "prompt": "Show me all rock tracks.", "expected_behaviors": ["browse_only_mode", "applies_limit", "genre_search"], "test_type": "browse_search"}
+{"id": "browse_artist_search", "prompt": "Find songs by Miles Davis.", "expected_behaviors": ["browse_only_mode", "applies_limit", "artist_search"], "test_type": "browse_search"}
+{"id": "browse_album_search", "prompt": "Show me tracks from the album 'Kind of Blue'.", "expected_behaviors": ["browse_only_mode", "applies_limit", "album_search"], "test_type": "browse_search"}
+{"id": "browse_composer_search", "prompt": "Find tracks composed by George Gershwin.", "expected_behaviors": ["browse_only_mode", "applies_limit", "composer_search"], "test_type": "browse_search"}
+{"id": "browse_price_only", "prompt": "Show me all tracks under $0.50.", "expected_behaviors": ["browse_only_mode", "applies_limit", "price_filter"], "test_type": "browse_search"}
+{"id": "browse_duration_filter", "prompt": "Find songs longer than 5 minutes.", "expected_behaviors": ["browse_only_mode", "applies_limit", "duration_filter"], "test_type": "browse_search"}
+{"id": "browse_media_type", "prompt": "Show me AAC audio files.", "expected_behaviors": ["browse_only_mode", "applies_limit", "media_type_filter"], "test_type": "browse_search"}
